@@ -9,7 +9,7 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const isSignedIn = require("./middleware/is-signed-in.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
-
+const path = require('path');
 
 
 
@@ -17,12 +17,13 @@ const passUserToView = require("./middleware/pass-user-to-view.js");
 
 const authController = require("./controllers/auth.js");
 const foodsController = require('./controllers/foods.js');
+const usersController = require('./controllers/users.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
 
 //Middleware
-
+app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));
 // Middleware for using HTTP verbs such as PUT or DELETE
@@ -56,7 +57,10 @@ app.use('/auth', authController);
 
 
 //Protected routs
+app.use('/users',isSignedIn, usersController);
+
 app.use('/users/:userId/foods',isSignedIn, foodsController);
+
 
 
 app.listen(port, () => {

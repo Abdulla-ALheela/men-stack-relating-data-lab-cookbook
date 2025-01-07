@@ -3,11 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>My Pantry</title>
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1>Welcome to my Pantry</h1>
+    <ul>
+      <%if(pantry.length !== 0) {%>
+      <% pantry.forEach((pantry)=>{ %>
+     <a class="button" href="/users/<%= user._id %>/foods/<%= pantry._id %>">
+        <%= pantry.foodName %>
+      </a>
+      <% }) %>
+      <%}else{%>
+        <h2>There are no items in this pantry.</h2>
+      <%}%>
+    </ul>
   </body>
 </html>
 

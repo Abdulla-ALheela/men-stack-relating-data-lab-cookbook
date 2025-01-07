@@ -1,0 +1,26 @@
+<!-- views/applications/show.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title><%= pantry.foodName%></title>
+  </head>
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1><%= pantry.foodName%></h1>
+
+    <a class="button" href="/users/<%= user._id %>/foods/<%= pantry._id %>/edit">
+        Edit this application
+      </a>
+
+    <form
+      action="/users/<%= user._id %>/foods/<%= pantry._id %>?_method=DELETE"
+      method="POST"
+    >
+      <button type="submit">Delete this Iteam</button>
+    </form>
+  </body>
+</html>
